@@ -13,6 +13,7 @@ from .views import (
     AssignTask,
     ListRisks,
     CreateRisk,
+    UpdateRisk,
 )
 
 urlpatterns = [
@@ -52,4 +53,10 @@ urlpatterns = [
         CreateRisk.as_view(),
         name="create_risk",
     ),
+    path(
+        "<int:space_id>/<int:project_id>/create_risk/",
+        CreateRisk.as_view(),
+        name="create_risk",
+    ),
+    path("<int:risk_id>/update_risk/", UpdateRisk.as_view(), name="update_risk"),
 ]

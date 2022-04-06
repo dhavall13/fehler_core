@@ -235,3 +235,16 @@ class CreateRisk(APIView):
                 serializer = RiskSerializer(risks, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(risk_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateRisk(APIView):
+    def put(self, request, risk_id):
+        """
+        Update a risk with provided credentials.
+        """
+        risk = Risk.objects.get(id=risk_id)
+        risk_serializer = RiskSerializer(risk, data=request.data)
+        if risk_serializer.is_valid(raise_exception=True):
+            risk_serializer.save()
+            return Response(risk_serializer.data, status=status.HTTP_200_OK)
+        return Response(risk_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
