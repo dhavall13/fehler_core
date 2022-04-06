@@ -248,3 +248,12 @@ class UpdateRisk(APIView):
             risk_serializer.save()
             return Response(risk_serializer.data, status=status.HTTP_200_OK)
         return Response(risk_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteRisk(APIView):
+    def delete(self, request, risk_id):
+        """
+        Delete a risk with provided credentials.
+        """
+        risk = Risk.objects.get(id=risk_id)
+        risk.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

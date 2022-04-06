@@ -14,6 +14,7 @@ from .views import (
     ListRisks,
     CreateRisk,
     UpdateRisk,
+    DeleteRisk,
 )
 
 urlpatterns = [
@@ -59,4 +60,5 @@ urlpatterns = [
         name="create_risk",
     ),
     path("<int:risk_id>/update_risk/", UpdateRisk.as_view(), name="update_risk"),
+    path("<int:risk_id>/delete_risk/", DeleteRisk.as_view(), name="delete_risk"),
 ]
