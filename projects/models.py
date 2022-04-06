@@ -61,42 +61,51 @@ class Task(models.Model):
 
 class Risk(models.Model):
 
-    BACKGROUND = (
-        ("Finance", "Finance"),
-        ("Operations", "Operations"),
-        ("Security", "Security"),
-    )
+    # BACKGROUND = (
+    #     ("Finance", "Finance"),
+    #     ("Operations", "Operations"),
+    #     ("Security", "Security"),
+    # )
 
     SEVERITY = (("L", "Low"), ("M", "Medium"), ("H", "High"))
 
-    PROBABILITY = (
-        ("0", "0%"),
-        ("10", "10%"),
-        ("20", "20%"),
-        ("30", "30%"),
-        ("40", "40%"),
-        ("50", "50%"),
-        ("60", "60%"),
-        ("70", "70%"),
-        ("80", "80%"),
-        ("90", "90%"),
-        ("C", "100%"),  # C = 100 in Roman. Because value can't be more than 2 numbers.
-    )
+    PROBABILITY = (("L", "Low"), ("M", "Medium"), ("H", "High"))
+
+    # PROBABILITY = (
+    #     ("0", "0%"),
+    #     ("10", "10%"),
+    #     ("20", "20%"),
+    #     ("30", "30%"),
+    #     ("40", "40%"),
+    #     ("50", "50%"),
+    #     ("60", "60%"),
+    #     ("70", "70%"),
+    #     ("80", "80%"),
+    #     ("90", "90%"),
+    #     (
+    #         "100",
+    #         "100%",
+    #     ),  # C = 100 in Roman. Because value can't be more than 2 numbers.
+    # )
 
     name = models.CharField(max_length=120)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    description = models.TextField()
-    background = models.CharField(max_length=50, choices=BACKGROUND, blank=False)
+    description = models.TextField(blank=True, null=True)
+    mitigation_action = models.TextField(blank=True, null=True)
+
+    # background = models.CharField(max_length=50, choices=BACKGROUND, blank=False)
     severity = models.CharField(max_length=2, choices=SEVERITY, blank=False)
-    probability_percentage = models.CharField(
-        max_length=2, choices=PROBABILITY, blank=False
-    )
+    probability = models.CharField(max_length=2, choices=PROBABILITY, blank=False)
+
+    # probability_percentage = models.CharField(
+    #     max_length=3, choices=PROBABILITY, blank=False
+    # )
     impact = models.CharField(max_length=120)
-    assignee = models.ForeignKey(
+    owner = models.ForeignKey(
         "fehler_auth.User",
         null=True,
         on_delete=models.SET_NULL,
-        related_name="risk_assignee",
+        related_name="risk_owner",
     )
     reporter = models.ForeignKey(
         "fehler_auth.User",
@@ -104,7 +113,7 @@ class Risk(models.Model):
         on_delete=models.SET_NULL,
         related_name="risk_reporter",
     )
-    status = models.CharField(max_length=120)
+    # status = models.CharField(max_length=120)
     date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

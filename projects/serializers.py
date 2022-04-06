@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Project, Task
+from .models import Project, Task, Risk
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -22,3 +22,9 @@ class TaskSerializer(serializers.ModelSerializer):
             "reporter",
             "status",
         ]
+
+
+class RiskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Risk
+        fields = "__all__"

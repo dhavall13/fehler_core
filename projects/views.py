@@ -6,8 +6,8 @@ from django.utils import timezone
 
 from fehler_auth.models import User
 
-from .serializers import ProjectSerializer, TaskSerializer
-from .models import Project, ProjectMembership, Task
+from .serializers import ProjectSerializer, TaskSerializer, RiskSerializer
+from .models import Project, ProjectMembership, Task, Risk
 from spaces.models import Space
 
 
@@ -207,3 +207,14 @@ class AssignTask(APIView):
             task.save()
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class ListRisks(APIView):
+    def get(self, request, space_id, project_id):
+        """
+        Return a list of all tasks associated with a particular project.
+        """
+        risks = Risk.objects.filter(project=project_id)
+        serializer = RiskSerializer(risks, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
