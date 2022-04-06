@@ -12,6 +12,7 @@ from .views import (
     AddProjectMember,
     AssignTask,
     ListRisks,
+    CreateRisk,
 )
 
 urlpatterns = [
@@ -45,5 +46,10 @@ urlpatterns = [
         "<int:space_id>/<int:project_id>/risks/",
         ListRisks.as_view(),
         name="list_risks",
+    ),
+    path(
+        "<int:space_id>/<int:project_id>/create_risk/",
+        CreateRisk.as_view(),
+        name="create_risk",
     ),
 ]

@@ -218,3 +218,20 @@ class ListRisks(APIView):
         serializer = RiskSerializer(risks, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CreateRisk(APIView):
+    def post(self, request, space_id, project_id):
+        """
+        Create a new risk with provided credentials.
+        """
+        risk_serializer = RiskSerializer(data=request.data)
+        if risk_serializer.is_valid(raise_exception=True):
+            new_risk = risk_serializer.save()
+            # risk_serializer.save()
+
+            if new_risk:
+                risks = Risk.objects.filter(project=project_id)
+                serializer = RiskSerializer(risks, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(risk_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
