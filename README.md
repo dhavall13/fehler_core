@@ -65,7 +65,24 @@ To get a local copy up and running follow these simple steps:
 
 Created with [Lucidchart](https://www.lucidchart.com/)
 
-![fehler-schema](./fehler-system-design.png)
+![fehler-schema](images/fehler-system-design.png)
+
+## Screenshots
+
+- Spaces
+  ![Spaces](images/spaces.png)
+
+- Projects
+  ![Projects](images/projects.png)
+
+- Kanban Board
+  ![Kanban Board](images/kanban-board.png)
+
+- Risk Register
+  ![Risk Register](images/risk-register.png)
+
+- Risk Matrix
+  ![Risk Matrix](images/risk-matrix.png)
 
 ## Authors
 
